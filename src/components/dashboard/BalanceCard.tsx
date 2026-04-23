@@ -1,9 +1,6 @@
-import { Plus, Send, Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
+import { Plus, Send, ShieldCheck, Sparkles } from "lucide-react";
 
 export function BalanceCard() {
-  const [isBalanceVisible, setIsBalanceVisible] = useState(false);
-
   return (
     <div
       className="relative overflow-hidden rounded-2xl p-6 text-white md:p-8"
@@ -12,41 +9,38 @@ export function BalanceCard() {
         boxShadow: "var(--shadow-hero)",
       }}
     >
-      {/* decorative blurred accent */}
+      {/* decorative blurred accents */}
       <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-brand-cyan/30 blur-3xl" />
       <div className="pointer-events-none absolute -left-16 bottom-0 h-48 w-48 rounded-full bg-white/10 blur-3xl" />
 
       <div className="relative">
-        <div className="flex items-center justify-between">
-          <p className="text-sm font-medium text-white/70">Total Balance</p>
-          <span className="rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-medium text-white/80 backdrop-blur">
-            Privacy On
-          </span>
-        </div>
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-[11px] font-medium text-white/85 backdrop-blur">
+          <ShieldCheck className="h-3 w-3 text-brand-cyan" />
+          Privacy-First Banking
+        </span>
 
-        <div className="mt-3 flex items-baseline gap-2">
-          <span className="text-4xl font-semibold tracking-tight md:text-5xl">
-            {isBalanceVisible ? "₹ 1,24,500" : "₹ ********"}
-          </span>
-          {isBalanceVisible && (
-            <span className="text-sm text-white/70">.00</span>
-          )}
-        </div>
-        <p className="mt-1 text-xs text-white/60">
-          Available across linked accounts
+        <h2 className="mt-4 text-2xl font-semibold leading-tight tracking-tight md:text-3xl">
+          Smarter money, <span className="text-brand-cyan">safer hands.</span>
+        </h2>
+        <p className="mt-2 max-w-xl text-sm text-white/70 md:text-base">
+          Send, receive and track your finances with bank-grade encryption.
+          Every rupee, every transaction — protected end-to-end.
         </p>
 
-        <button
-          onClick={() => setIsBalanceVisible((v) => !v)}
-          className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-medium text-white backdrop-blur transition hover:border-brand-cyan hover:bg-white/15"
-        >
-          {isBalanceVisible ? (
-            <EyeOff className="h-3.5 w-3.5" />
-          ) : (
-            <Eye className="h-3.5 w-3.5" />
-          )}
-          {isBalanceVisible ? "Hide Balance" : "Check Balance"}
-        </button>
+        <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-white/70">
+          <span className="inline-flex items-center gap-1.5">
+            <Sparkles className="h-3.5 w-3.5 text-brand-cyan" />
+            Zero hidden fees
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <ShieldCheck className="h-3.5 w-3.5 text-brand-cyan" />
+            RBI compliant
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <Sparkles className="h-3.5 w-3.5 text-brand-cyan" />
+            Instant settlements
+          </span>
+        </div>
 
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
           <button className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-cyan px-5 py-3 text-sm font-semibold text-brand-navy transition hover:brightness-110">
