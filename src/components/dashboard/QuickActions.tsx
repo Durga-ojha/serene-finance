@@ -1,12 +1,12 @@
-import { ScanLine, Smartphone, Landmark, Wallet, type LucideIcon } from "lucide-react";
+import { ScanLine, Landmark, Users, ArrowLeftRight, type LucideIcon } from "lucide-react";
 
 type Action = { icon: LucideIcon; label: string };
 
 const actions: Action[] = [
   { icon: ScanLine, label: "Scan & Pay" },
-  { icon: Smartphone, label: "To Mobile Number" },
   { icon: Landmark, label: "To Bank Account" },
-  { icon: Wallet, label: "Check Balance" },
+  { icon: Users, label: "Pay Contacts" },
+  { icon: ArrowLeftRight, label: "Self Transfer" },
 ];
 
 export function QuickActions() {

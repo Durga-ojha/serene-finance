@@ -2,24 +2,39 @@ import { createFileRoute } from "@tanstack/react-router";
 import { TopHeader } from "@/components/dashboard/TopHeader";
 import { BalanceCard } from "@/components/dashboard/BalanceCard";
 import { QuickActions } from "@/components/dashboard/QuickActions";
+import { MonthlyOverview } from "@/components/dashboard/MonthlyOverview";
 import { BillPayments } from "@/components/dashboard/BillPayments";
 import { RecentTransactions } from "@/components/dashboard/RecentTransactions";
+import { LoginScreen } from "@/components/auth/LoginScreen";
+import { AuthProvider, useAuth } from "@/context/AuthContext";
 
 export const Route = createFileRoute("/")({
-  component: Dashboard,
+  component: AppRoot,
   head: () => ({
     meta: [
-      { title: "PayLite — Your Finance Dashboard" },
+      { title: "PayLite — Secure Finance Hub" },
       {
         name: "description",
         content:
-          "Manage balance, send money, recharge mobiles, pay bills and track transactions in one clean dashboard.",
+          "Premium fintech dashboard with privacy-first balance, GhostPass auth, quick actions, monthly insights and transactions.",
       },
     ],
   }),
 });
 
-function Dashboard() {
+function AppRoot() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
+  );
+}
+
+function AppContent() {
+  const { isAuthenticated } = useAuth();
+
+  if (!isAuthenticated) return <LoginScreen />;
+
   return (
     <div className="min-h-screen bg-background font-sans">
       <TopHeader />
@@ -27,6 +42,7 @@ function Dashboard() {
         <h1 className="sr-only">Finance Dashboard</h1>
         <BalanceCard />
         <QuickActions />
+        <MonthlyOverview />
         <BillPayments />
         <RecentTransactions />
       </main>
