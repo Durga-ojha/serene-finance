@@ -2,50 +2,60 @@ import { Plus, Send, Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 
 export function BalanceCard() {
-  const [hidden, setHidden] = useState(false);
+  const [isBalanceVisible, setIsBalanceVisible] = useState(false);
 
   return (
     <div
-      className="relative overflow-hidden rounded-2xl bg-card p-6 md:p-8"
-      style={{ boxShadow: "var(--shadow-hero)" }}
+      className="relative overflow-hidden rounded-2xl p-6 text-white md:p-8"
+      style={{
+        background: "var(--gradient-hero)",
+        boxShadow: "var(--shadow-hero)",
+      }}
     >
-      {/* subtle gradient accent */}
-      <div
-        className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full opacity-40 blur-3xl"
-        style={{ background: "var(--gradient-hero)" }}
-      />
+      {/* decorative blurred accent */}
+      <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-brand-cyan/30 blur-3xl" />
+      <div className="pointer-events-none absolute -left-16 bottom-0 h-48 w-48 rounded-full bg-white/10 blur-3xl" />
+
       <div className="relative">
-        <div className="flex items-center gap-2">
-          <p className="text-sm font-medium text-muted-foreground">
-            Total Balance
-          </p>
-          <button
-            onClick={() => setHidden((h) => !h)}
-            className="flex h-7 w-7 items-center justify-center rounded-full text-muted-foreground transition hover:bg-muted"
-            aria-label="Toggle balance visibility"
-          >
-            {hidden ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-          </button>
+        <div className="flex items-center justify-between">
+          <p className="text-sm font-medium text-white/70">Total Balance</p>
+          <span className="rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-medium text-white/80 backdrop-blur">
+            Privacy On
+          </span>
         </div>
 
-        <div className="mt-2 flex items-baseline gap-2">
-          <span className="text-4xl font-semibold tracking-tight text-foreground md:text-5xl">
-            {hidden ? "₹ ••••••" : "₹ 1,24,580"}
+        <div className="mt-3 flex items-baseline gap-2">
+          <span className="text-4xl font-semibold tracking-tight md:text-5xl">
+            {isBalanceVisible ? "₹ 1,24,500" : "₹ ********"}
           </span>
-          <span className="text-sm text-muted-foreground">.50</span>
+          {isBalanceVisible && (
+            <span className="text-sm text-white/70">.00</span>
+          )}
         </div>
-        <p className="mt-1 text-xs text-muted-foreground">
+        <p className="mt-1 text-xs text-white/60">
           Available across linked accounts
         </p>
 
+        <button
+          onClick={() => setIsBalanceVisible((v) => !v)}
+          className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-medium text-white backdrop-blur transition hover:border-brand-cyan hover:bg-white/15"
+        >
+          {isBalanceVisible ? (
+            <EyeOff className="h-3.5 w-3.5" />
+          ) : (
+            <Eye className="h-3.5 w-3.5" />
+          )}
+          {isBalanceVisible ? "Hide Balance" : "Check Balance"}
+        </button>
+
         <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-          <button className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-navy px-5 py-3 text-sm font-medium text-white transition hover:bg-brand-navy-dark">
+          <button className="inline-flex items-center justify-center gap-2 rounded-xl bg-brand-cyan px-5 py-3 text-sm font-semibold text-brand-navy transition hover:brightness-110">
             <Plus className="h-4 w-4" />
             Add Money
           </button>
-          <button className="inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-card px-5 py-3 text-sm font-medium text-foreground transition hover:border-brand-navy hover:text-brand-navy">
+          <button className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/25 bg-white/5 px-5 py-3 text-sm font-medium text-white backdrop-blur transition hover:bg-white/10">
             <Send className="h-4 w-4" />
-            Send Money
+            Transfer
           </button>
         </div>
       </div>

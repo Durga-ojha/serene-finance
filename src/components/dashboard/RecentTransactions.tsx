@@ -6,14 +6,15 @@ type Tx = {
   amount: number;
   type: "received" | "sent";
   initials: string;
+  status: "Successful" | "Pending";
 };
 
 const txs: Tx[] = [
-  { name: "Rohan Mehta", date: "Today, 2:14 PM", amount: 1200, type: "received", initials: "RM" },
-  { name: "Swiggy Order", date: "Today, 1:02 PM", amount: 348, type: "sent", initials: "SW" },
-  { name: "Priya Sharma", date: "Yesterday, 8:45 PM", amount: 5000, type: "received", initials: "PS" },
-  { name: "Electricity Bill", date: "Yesterday, 11:20 AM", amount: 1820, type: "sent", initials: "EB" },
-  { name: "Amazon Refund", date: "22 Apr, 4:30 PM", amount: 799, type: "received", initials: "AM" },
+  { name: "Salary — Acme Corp", date: "Today, 9:00 AM", amount: 84250, type: "received", initials: "AC", status: "Successful" },
+  { name: "Amazon", date: "Today, 1:02 PM", amount: 1349, type: "sent", initials: "AM", status: "Successful" },
+  { name: "Priya Sharma", date: "Yesterday, 8:45 PM", amount: 5000, type: "received", initials: "PS", status: "Successful" },
+  { name: "Electricity Bill", date: "Yesterday, 11:20 AM", amount: 1820, type: "sent", initials: "EB", status: "Successful" },
+  { name: "Swiggy", date: "22 Apr, 8:30 PM", amount: 348, type: "sent", initials: "SW", status: "Successful" },
 ];
 
 const fmt = (n: number) => `₹${n.toLocaleString("en-IN")}`;
@@ -40,7 +41,7 @@ export function RecentTransactions() {
           return (
             <li
               key={i}
-              className="flex items-center gap-4 py-4 first:pt-0 last:pb-0"
+              className="flex items-center gap-4 py-4 transition first:pt-0 last:pb-0 hover:bg-muted/40 hover:rounded-lg hover:px-2"
             >
               <div className="relative">
                 <div
@@ -62,7 +63,14 @@ export function RecentTransactions() {
                 <p className="truncate text-sm font-medium text-foreground">
                   {tx.name}
                 </p>
-                <p className="text-xs text-muted-foreground">{tx.date}</p>
+                <div className="mt-0.5 flex items-center gap-2">
+                  <span className="inline-flex items-center gap-1 text-[11px] text-muted-foreground">
+                    <span className="h-1.5 w-1.5 rounded-full bg-success" />
+                    {tx.status}
+                  </span>
+                  <span className="text-[11px] text-muted-foreground">·</span>
+                  <p className="text-xs text-muted-foreground">{tx.date}</p>
+                </div>
               </div>
 
               <div className="text-right">
@@ -74,7 +82,7 @@ export function RecentTransactions() {
                   {isReceived ? "+" : "−"} {fmt(tx.amount)}
                 </p>
                 <p className="text-xs text-muted-foreground">
-                  {isReceived ? "Received" : "Sent"}
+                  {isReceived ? "Credit" : "Debit"}
                 </p>
               </div>
             </li>
